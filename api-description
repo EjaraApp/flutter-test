@@ -1,0 +1,86 @@
+Checks username, email and phone number
+This function checks the existence and validity of an email, username and phone number before account creation.
+
+Path →POST /api/v1/auth/sign-up/check-signup-details
+
+Body request
+  username=<string>
+  email_address=<string, email>
+  phone_number=<string, phone number>
+  country_code=<string, 2>
+
+Response
+
+On Success
+HTTP STATUS 200
+
+{
+    "responsecode": "ok", 
+    "message": ""=<string>
+}
+ 
+
+On Error
+  Invalid email
+    status code : 404
+    headers :{
+      x-exit : invalidEmail
+      x-exit-description : The provided email address is invalid.
+    }
+    body:{
+      message: 'The provided email address is invalid'
+    }
+ Username already in use
+    status code : 404
+    headers :{
+      x-exit : usernameAlreadyInUse
+      x-exit-description : The provided username is already in use.
+    }
+    body:{
+      message:  ""=<string>
+    }
+ Email address already in use
+    status code : 409
+    headers :{
+      x-exit : emailAlreadyInUse
+      x-exit-description : The provided email address is already in use.
+    }
+    body:{
+      message:  ""=<string>
+    }
+Invalid phone number
+    status code : 400
+    headers :{
+      x-exit : invalidPhoneNumber
+      x-exit-description : Invalid phone number.
+    }
+    body:{
+      message:  ""=<string>
+    }
+ Phone number already in use
+    status code : 409
+    headers :{
+      x-exit : phoneAlreadyInUse
+      x-exit-description : The provided phone number is already in use.
+    }
+    body:{
+      message:  ""=<string>
+    }
+ Username unavailable 
+    status code : 409
+    headers :{
+      x-exit : usernameUnavailable
+      x-exit-description : The provided username is not available for public use.
+    }
+    body:{
+      message:  ""=<string>
+    }
+ Server error
+    status code : 500
+    headers :{
+      x-exit : serverError
+      x-exit-description : An error occured. Contact an admin for assistance.
+    }
+    body:{
+      message:  ""=<string>
+    }
